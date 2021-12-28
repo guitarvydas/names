@@ -1,8 +1,7 @@
 Main [Imports Query]
 = [[#!/usr/bin/env swipl
 ${Imports}
-${Query}
-    true.
+${Query}    true.
 query:-
     bagof([ID,Name],query_helper(ID,Name),Bag),
     json_write(user_output,Bag,[width(128)]).
@@ -11,9 +10,9 @@ query:-
 Imports [@sharp kimports @importsid] = [[?- consult(fb).\n${importsid}]]
 Query [@sharp kquery @PrologClause] = [[query_helper:-\n${PrologClause}]]
 
-  importsid [name] = [[?- consult(${getargv ("PREFIX")}${name}).\n]]
+  importsid [name] = [[?- consult(${support.readTextFile (name)}]]
   
-  PrologClause_clauseWithArgs [id klp @prologArgs krp] = [[\ \ ${id}${klp}${prologArgs}${krp}.\n]]
+  PrologClause_clauseWithArgs [id klp @prologArgs krp] = [[\ \ \ \ ${id}${klp}${prologArgs}${krp},\n]]
   PrologClause_assignment [id1 keq id2] = [[${id1} ${keq} ${id2}]]
   PrologClause_clauseWithoutArgs [id] = [[${id}]]
 
