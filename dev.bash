@@ -1,2 +1,3 @@
 ~/app/make.bash
-prep "." "$" names.ohm names.glue --stop=1 --support=`pwd`/support.js --PREFIX="abc/" <names.md
+cwd=`pwd`
+prep "." "$" names.ohm names.glue --stop=1 --support=${cwd}/support.js --PREFIX="${cwd}/" <names.md
