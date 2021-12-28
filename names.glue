@@ -1,0 +1,38 @@
+Main [Imports Query]
+= [[#!/usr/bin/env swipl
+${Imports}
+${Query}
+    true.
+query:-
+    bagof([ID,Name],query_helper(ID,Name),Bag),
+    json_write(user_output,Bag,[width(128)]).
+]]
+
+Imports [@sharp kimports @importsid] = [[?- consult(fb).\n${importsid}]]
+Query [@sharp kquery @PrologClause] = [[query_helper:-\n${PrologClause}]]
+
+  importsid [name] = [[?- consult(${getargv ("PREFIX")}${name}).\n]]
+  
+  PrologClause_clauseWithArgs [id klp @prologArgs krp] = [[\ \ ${id}${klp}${prologArgs}${krp}.\n]]
+  PrologClause_assignment [id1 keq id2] = [[${id1} ${keq} ${id2}]]
+  PrologClause_clauseWithoutArgs [id] = [[${id}]]
+
+  prologArgs_nested [klp @prologArgs krp] = [[${klp}${prologArgs}${krp}]]
+  prologArgs_other [any] = [[${any}]]
+
+    sharp [c] = [[${c}]]
+    identifier [firstChar @restChar] = [[${firstChar}${restChar}]]
+    firstChar [c] = [[${c}]]
+    restChar [c] = [[${c}]]
+
+    nl [c] = [[${c}]]
+    notNL [any] = [[${any}]]
+
+    string [dq1 @notDQ dq2] = [[${dq1}${notDQ}${dq2}]]
+    dq [c] = [[${c}]]
+    notDQ [any] = [[${any}]]
+    ws [c] = [[${c}]]    
+    comment [kslashslash @notNL nl] = [[${kslashslash}${notNL}${nl}]]
+    space [c] = [[${c}]]
+
+

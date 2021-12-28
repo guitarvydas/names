@@ -1,0 +1,34 @@
+names {
+ // transpile query to swipl (SWI PROLOG)
+ Main = Imports Query
+ Imports = sharp+ "imports" importsid+
+ Query = sharp+ "query" PrologClause+
+
+ PrologClause 
+    = identifier "(" prologArgs+ ")" -- clauseWithArgs
+    | identifier "=" identifier     -- assignment
+    | identifier                    -- clauseWithoutArgs
+
+ prologArgs
+    = "(" prologArgs+ ")"            -- nested
+    | ~")" ~"(" any                  -- other
+
+
+ importsid = identifier
+ 
+    nl = "\n"
+    sharp = "#"
+    notNL = ~nl any
+
+    identifier = firstChar restChar*
+    firstChar = "A" .. "Z" | "a" .. "z" | "_"
+    restChar = "0" .. "9" | firstChar
+    string = dq notDQ* dq
+    dq = "\""
+    notDQ = ~dq any
+    ws = " " | "\t"
+    
+    comment = "//" notNL* nl
+    space += comment
+}
+
